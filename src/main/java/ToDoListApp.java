@@ -4,7 +4,7 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
-import java.sql.SQLOutput;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +19,7 @@ public class ToDoListApp {
 
         logger.info("creating to do list");
 
-        ArrayList<String> toDo = new ArrayList<String>();
+        ArrayList<String> toDo = new ArrayList<>();
 
         int userOption = 0;
         while(userOption != -1) {
@@ -33,24 +33,26 @@ public class ToDoListApp {
             userOption = scan.nextInt();
 
             if (userOption == 1) {
+                logger.debug("running UserInputAddItem");
                 UserInputAddItem(toDo);
                 logger.info("item added");
             }
             else if (userOption == 2) {
+                logger.debug("running UserInputDeleteItem");
                 UserInputDeleteItem(toDo);
                 logger.info("item deleted");
             }
             else if (userOption == 3) {
-                System.out.println("To do: ");
+                logger.debug("running PrintToDoList");
                 PrintToDoList(toDo);
                 logger.info("list printed");
             }
             else if (userOption != -1) {
+                logger.warn("invalid user input");
                 System.out.println("Error please type a valid option");
-                logger.info("invalid user input");
             }
         }
-
+        logger.info("exiting to do list");
     }
 
     public static void UserInputAddItem (ArrayList<String> toDo) {
@@ -72,7 +74,7 @@ public class ToDoListApp {
 
     public static void UserInputDeleteItem (ArrayList<String> toDo) {
 
-        int place = 0;
+        int place;
 
         System.out.println("Please enter the number of the item you would like to delete: ");
         place = scan.nextInt();
@@ -96,6 +98,12 @@ public class ToDoListApp {
     }
 
     public static void PrintToDoList (ArrayList<String> toDo) {
+        if(toDo.isEmpty()) {
+            logger.warn("printing empty list");
+        }
+
+        System.out.println("To do: ");
+
         for(int i = 0; i < toDo.size(); i++) {
             System.out.println(i+1 + ". " + toDo.get(i));
         }
