@@ -4,6 +4,7 @@
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
+            <LevelRangeFilter mineLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${layout}" />
         </Console>
         <File name="LogFile" fileName="app.log">

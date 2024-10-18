@@ -1,9 +1,10 @@
 //Nathan Perez
-//To do list that allows adding, deleting, and printing
+//To do list that allows adding, deleting, and printing - with logging
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -76,12 +77,22 @@ public class ToDoListApp {
         System.out.println("Please enter the number of the item you would like to delete: ");
         place = scan.nextInt();
 
-        DeleteItem((place - 1), toDo);
-        System.out.println("Item " + place + " has been deleted from your list.");
+        if(DeleteItem((place - 1), toDo)) {
+            System.out.println("Item " + place + " has been deleted from your list.");
+        }
+        else System.out.println("Item " + place + " could not be deleted.");
     }
 
-    public static void DeleteItem (int placeInArray, ArrayList<String> toDo) {
-        toDo.remove(placeInArray);
+    //returns true if item was successfully deleted, else false
+    public static boolean DeleteItem (int placeInArray, ArrayList<String> toDo) {
+        try {
+            toDo.remove(placeInArray);
+            return true;
+        }
+        catch (Exception e){
+            logger.error("no item at " + placeInArray + ".");
+            return false;
+        }
     }
 
     public static void PrintToDoList (ArrayList<String> toDo) {
