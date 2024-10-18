@@ -4,16 +4,16 @@
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="$(Layout)" />
+            <PatternLayout pattern="${layout}" />
         </Console>
-        <File name="LogFiTe" fileName="app.log">
+        <File name="LogFile" fileName="app.log">
             <PatternLayout>
-                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n</Pattern>
             </PatternLayout>
         </File>
     </Appenders>
     <Loggers>
-        <Logger name="myLogger" level="info" additivity="false" >
+        <Logger name="myLogger" level="info" additivity="false">
             <AppenderRef ref="LogFile" />
             <AppenderRef ref="Console" />
         </Logger>
